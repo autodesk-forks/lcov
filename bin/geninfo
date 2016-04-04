@@ -213,6 +213,7 @@ sub is_compat_auto($);
 
 
 # Global variables
+our @gcov_tool;
 our $gcov_version;
 our $gcov_version_string;
 our $graph_file_extension;
@@ -428,8 +429,13 @@ if ($version)
 	exit(0);
 }
 
+# Allow the gcov tool to be a command with an argument. Useful for using
+# "llvm-cov gcov" as the gcov tool!
+@gcov_tool = split(/\s/, $gcov_tool);
+
 # Check gcov tool
-if (system_no_output(3, $gcov_tool, "--help") == -1)
+print("TOOL: $gcov_tool\n");
+if (system_no_output(3, @gcov_tool, "--help") == -1)
 {
 	die("ERROR: need tool $gcov_tool!\n");
 }
@@ -1026,7 +1032,7 @@ sub process_dafile($$)
 	}
 
 	# Execute gcov command and suppress standard output
-	$gcov_error = system_no_output(1, $gcov_tool, $da_filename,
+	$gcov_error = system_no_output(1, @gcov_tool, $da_filename,
 				       "-o", $object_dir, @gcov_options);
 
 	if ($da_renamed)
