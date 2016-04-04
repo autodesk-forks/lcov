@@ -47,8 +47,8 @@ geninfo \- Generate tracefiles from .da files
 .IR keyword = value ]
 .RE
 .SH DESCRIPTION
-.B geninfo 
-converts all GCOV coverage data files found in 
+.B geninfo
+converts all GCOV coverage data files found in
 .I directory
 into tracefiles, which the
 .B genhtml
@@ -315,6 +315,9 @@ Follow links when searching .da files.
 .br
 .RS
 Specify the location of the gcov tool.
+
+The argument can also include optional arguments to pass to the gcov tool; for
+example, \-\-gcov\-tool "llvm-cov gcov".
 .RE
 
 .B \-h
@@ -416,7 +419,7 @@ for a list of available keywords and their meaning.
 .br
 .BI "\-\-test\-name " testname
 .RS
-Use test case name 
+Use test case name
 .I testname
 for resulting data. Valid test case names can consist of letters, decimal
 digits and the underscore character ('_').
